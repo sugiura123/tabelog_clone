@@ -3,6 +3,7 @@
 class UsersController extends AppController {
 
     public function beforeFilter() {
+        //AppController.phpに記載したbeforeFilter()と親子関係とみる。なのでparent
         parent::beforeFilter();
 
         $this->Auth->allow('add');

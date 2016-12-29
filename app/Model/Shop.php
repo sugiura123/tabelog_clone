@@ -7,9 +7,9 @@ class Shop extends AppModel {
         // UploadプラグインのUploadBehaviorという意味
         'Upload.Upload' => [
             // photoというカラムに Uploadビヘイビアを使ってファイル名を登録する
-            'photo' => [
+                'photo' => [
                 // デフォルトのカラム名 dir を photo_dir に変更
-                'fields' => ['dir' => 'photo_dir'],
+               //☆ 'fields' => ['dir' => 'photo_dir'],
                 'deleteOnUpdate' => true,
             ]
         ]
@@ -22,6 +22,7 @@ class Shop extends AppModel {
         ]
     ];
 
+//｢このフィールドに入力して下さい｣と勝手に出るようになっている。
     public $validate = [
         'name' => [
             'rule' => ['notBlank']

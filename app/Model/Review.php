@@ -1,8 +1,9 @@
 <?php
 
 class Review extends AppModel {
-
+//ReviewはUser,Shopに紐付いている
     public $belongsTo = [
+    //この'User'は['className' => 'User']に対するエイリアスなので'sugiura'とかでも良い
         'User' => [
             'className' => 'User'
         ],
@@ -30,6 +31,7 @@ class Review extends AppModel {
 
         $options = [
             'conditions' => [
+            //$shopIdはreview投稿時のID(ReviewsControllerの7行目)$userIdはいまログインしているユーザReviewsControllerの13行目)
                 'shop_id' => $shopId,
                 'user_id' => $userId
             ]

@@ -1,8 +1,10 @@
 <?php
+//isNew(データが空である)がtrueであれば投稿。そうでなければ編集
     $titleLabel = $isNew ? '投稿' : '編集';
     $submitLabel = $isNew ? '投稿' : '更新';
 ?>
 
+<!-- //titleLabelが切り替わる -->
 <h2>レビュー<?= $titleLabel; ?></h2>
 
 <?= $this->Form->create('Review'); ?>
@@ -16,6 +18,7 @@
 <?= $this->Form->input('body', ['label' => '内容']); ?>
 <?= $this->Form->hidden('id'); ?>
 <?= $this->Form->hidden('shop_id', ['value' => $shopId]); ?>
+<!-- //投稿または更新ボタン -->
 <?= $this->Form->end($submitLabel); ?>
 
 <?php if ($this->request->data) : ?>

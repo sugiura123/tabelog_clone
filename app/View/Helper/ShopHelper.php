@@ -11,8 +11,10 @@ class ShopHelper extends AppHelper {
         $defaultPhoto = Configure::read('Photo.default');
 
         if (empty($shop['Shop']['photo'])) {
+//デフォルトの写真を読み込む
             $path = $defaultPhoto;
         } else {
+//それ以外は登録した写真を読み込む
             $path = $photoDir . $shop['Shop']['photo_dir'] . '/' . $shop['Shop']['photo'];
         }
 

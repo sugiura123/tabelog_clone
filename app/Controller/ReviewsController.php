@@ -1,7 +1,7 @@
 <?php
 
 class ReviewsController extends AppController {
-
+//ModelのReviewとShopを使う
     public $uses = ['Review', 'Shop'];
 
     public function edit($shopId = null) {
@@ -9,7 +9,7 @@ class ReviewsController extends AppController {
         if (!$this->Shop->exists($shopId)) {
             throw new NotFoundException('レストランがみつかりません');
         }
-
+//現在ログインしているユーザとする↓
         $userId = $this->Auth->user('id');
 
         if ($this->request->is(['post', 'put'])) {
@@ -27,10 +27,12 @@ class ReviewsController extends AppController {
                 return $this->redirect([
                     'controller' => 'shops',
                     'action' => 'view',
+                    //viewに飛ばすためにはIDを指定しなければならない。
                     $shopId
                     ]);
             }
         } else {
+            //指定した$shopId, $userIdをもとにModel(Review.php)29行目以降からデータを引っ張ってくる。
             $this->request->data = $this->Review->getData($shopId, $userId);
         }
 

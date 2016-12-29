@@ -1,5 +1,5 @@
 <?php
-
+//ハッシュ化するための構文
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
@@ -84,13 +84,13 @@ class User extends AppModel {
 
     }
 
-
+//saveする前に実行する構文
     public function beforeSave($options = []) {
 
-        // パスワードをハッシュ化
+        // パスワードをハッシュ化   issetとは｢変数がセットされており、それが NULL でないことを調べます｣
         if (isset($this->data['User']['password'])) {
             $passwordHasher = new BlowfishPasswordHasher();
-
+//data['User']['password']をhash化したものを$passwordHasherに突っ込む
             $this->data['User']['password'] = $passwordHasher->hash($this->data['User']['password']);
         }
 

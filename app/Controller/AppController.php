@@ -33,6 +33,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     public function beforeFilter() {
+        //現在ログインしているユーザをcurrentUserとしている
         $this->set('currentUser', $this->Auth->user());
     }
 
@@ -58,6 +59,7 @@ class AppController extends Controller {
                 'controller' => 'shops',
                 'action' => 'index'
             ],
+            //ログインした時のリダイレクト先
             'logoutRedirect' => [
                 'controller' => 'shops',
                 'action' => 'index'

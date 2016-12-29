@@ -13,16 +13,20 @@ class ShopsController extends AppController {
         ]
     ];
 
+//他を差し置きまっさきにこれを実行する構文
     public function beforeFilter() {
+        //AppController.phpに記載したbeforeFilter()と親子関係とみる。なのでparent
         parent::beforeFilter();
 
+//index,viewともにログインしなくても閲覧ができる(allow で許可する･)
         $this->Auth->allow('index', 'view');
     }
 
     public function index() {
         // $this->set('shops', $this->Shop->find('all'));
-        //上の第一引数'shops'は'sugiura'でもOK
+        //上の第一引数'shops'は'sugiura'でもOK。shopsは変数名
         //Model経由でshopsにアクセスする。大文字Shopにする
+        //paginateはfind('all')を兼ねているからfind('all')を表示させなくてもOK
         $this->set('shops', $this->Paginator->paginate());
 
         // 効率よくレビュー件数とレビュー平均値を集計する為に、JOIN と GROUP BY を使用する
@@ -102,6 +106,7 @@ class ShopsController extends AppController {
         }
     }
 
+//add()の時と違って($id = null)とするのはexists($id)で確認するから一旦リセットする意味で
     public function edit($id = null) {
         if (!$this->Shop->exists($id)) {
             throw new NotFoundException('レストランがみつかりません');
@@ -112,6 +117,7 @@ class ShopsController extends AppController {
                 $this->Flash->success('レストランを更新しました');
                 return $this->redirect(['action' => 'index']);
             }
+            //↑このままではアクセスした時フォームの中身が空っぽになってしまうので,以下を書く
         } else {
             $this->request->data = $this->Shop->findById($id);
         }
@@ -123,6 +129,7 @@ class ShopsController extends AppController {
             throw new NotFoundException('レストランがみつかりません');
         }
 
+//post,deleteメソッドの時のみ許可する。つまりgetメソッドのときは表示(許可されない)
         $this->request->allowMethod('post', 'delete');
 
         if ($this->Shop->delete($id)) {
